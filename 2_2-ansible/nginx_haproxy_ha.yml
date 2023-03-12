@@ -1,0 +1,13 @@
+---
+
+- hosts: webservers
+  become: yes
+  roles:
+    - nginx
+
+- hosts: loadbalancers
+  become: yes
+  roles:
+    - haproxy
+    - keepalived
+

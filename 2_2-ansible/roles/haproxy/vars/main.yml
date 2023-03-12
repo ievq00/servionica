@@ -1,0 +1,10 @@
+---
+# vars file for haproxy
+
+    title_frontend: myfront
+    title_backend: myback
+    method_load_balancing: roundrobin
+    webserver1_title: web1
+    webserver1_address: 192.168.55.103
+    webserver2_title: web2
+    webserver2_address: 192.168.55.104

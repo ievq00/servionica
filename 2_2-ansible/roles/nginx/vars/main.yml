@@ -1,0 +1,6 @@
+---
+# vars file for nginx
+
+server_name: "{{ ansible_hostname }}"
+folder_root: /usr/share/nginx/html
+server_name_index: "< {{ ansible_hostname }} >"
