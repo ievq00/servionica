@@ -1,0 +1,25 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+Vagrant.configure("2") do |config|
+#выбираем образ системы
+  config.vm.box = "ubuntu/jammy64"
+#задаем провайдера и параметры вм 
+  config.vm.provider "virtualbox" do |vb|
+    vb.name = "UbuntuPy"
+    vb.memory = "512"
+    vb.cpus = 1
+  end
+  config.vm.hostname = "UbuntuPy"  
+  config.vm.network "private_network", ip: "192.168.55.100"
+#переносим открытый ключ на вм
+  config.vm.provision "file", source: "me.pub", destination: "~/.ssh/me.pub" 
+#ставим python
+  config.vm.provision "shell", inline: <<-SHELL
+    apt update -y
+    apt install -y python3
+	mkdir /home/vagrant/task
+#добавляем открытый ключ пользователям vagrant и root
+	cat /home/vagrant/.ssh/me.pub >> /home/vagrant/.ssh/authorized_keys
+	cat /home/vagrant/.ssh/me.pub >> /root/.ssh/authorized_keys
+    SHELL
+end
