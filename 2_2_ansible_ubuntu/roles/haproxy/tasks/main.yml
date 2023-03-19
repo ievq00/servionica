@@ -1,0 +1,18 @@
+---
+# tasks file for haproxy
+    - name: Install haproxy
+      apt:
+        name: haproxy
+        state: present
+
+    - name: configure haproxy
+      template:
+        src: haproxy.cfg.j2
+        dest: "/etc/haproxy/haproxy.cfg"
+      notify: reload haproxy
+
+    - name: Enabled, started haproxy
+      service:
+        name: haproxy
+        enabled: true
+        state: started

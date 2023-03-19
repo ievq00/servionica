@@ -1,0 +1,16 @@
+defaults
+  mode http
+  timeout client 10s
+  timeout connect 5s
+  timeout server 10s
+  timeout http-request 10s
+  log global
+
+frontend {{ title_frontend }}
+  bind *:80
+  default_backend {{ title_backend }}
+
+backend {{ title_backend }} 
+  balance {{ method_load_balancing }}
+  server {{ webserver1_title }} {{ webserver1_address }}
+  server {{ webserver2_title }} {{ webserver2_address }}

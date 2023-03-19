@@ -1,0 +1,24 @@
+---
+# tasks file for nginx
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: yes
+
+    - name: Apply nginx template conf
+      template:
+        src: nginx.conf.j2
+        dest: "/etc/nginx/nginx.conf"
+      notify: restart nginx
+
+    - name: Insert index
+      template:
+        src: index.html.j2
+        dest: "{{ folder_root }}/index.html"
+
+    - name: Enabled, started nginx
+      service:
+        name: nginx
+        enabled: true
+        state: started

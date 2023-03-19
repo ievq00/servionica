@@ -1,0 +1,8 @@
+---
+# vars file for keepalived
+
+    KEEPALIVED_VIRTUAL_IPS: 192.168.55.111
+    KEEPALIVED_INTERFACE: enp0s8
+    KEEPALIVED_Vrid: 77
+    KEEPALIVED_auth_type: PASS
+    KEEPALIVED_auth_pass: 123956

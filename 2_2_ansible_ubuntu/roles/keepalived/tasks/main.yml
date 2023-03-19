@@ -1,0 +1,30 @@
+---
+# tasks file for keepalived
+    - name: Set keep vars MASTER
+      set_fact:
+        KEEPALIVED_PRIORITY: 200
+        KEEPALIVED_STATE: MASTER
+      when: ansible_hostname == "Uha1"
+
+    - name: Set keep vars BACKUP
+      set_fact:
+        KEEPALIVED_PRIORITY: 100
+        KEEPALIVED_STATE: BACKUP
+      when: ansible_hostname == "Uha2"
+
+    - name: Install keepalived
+      apt:
+        name: keepalived
+        state: present
+
+    - name: configure keepalived
+      template:
+        src: keepalived.conf.j2
+        dest: "/etc/keepalived/keepalived.conf"
+      notify: restart keepalived
+
+    - name: Enabled, started keepalived
+      service:
+        name: keepalived
+        enabled: true
+        state: started
