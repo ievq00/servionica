@@ -1,0 +1,25 @@
+version: '3'
+services:
+
+  haproxy1:
+    container_name: haproxy1
+    image: haproxytech/haproxy-alpine:2.7
+    ports:
+      - "80:80"
+      - "8404:8404"
+    volumes:
+      - ./src:/usr/local/etc/haproxy:ro
+
+  keepalived:
+    container_name: keepalived
+    image: osixia/keepalived:2.0.20
+    cap_add:
+      - NET_ADMIN
+      - NET_BROADCAST
+      - NET_RAW
+    environment:
+      KEEPALIVED_UNICAST_PEERS: "#PYTHON2BASH:['192.168.55.101', '192.168.55.102']"
+      KEEPALIVED_VIRTUAL_IPS: 192.168.55.111
+      KEEPALIVED_PRIORITY: 200
+      KEEPALIVED_INTERFACE: enp0s8
+    network_mode: "host"
