@@ -4,13 +4,13 @@
       set_fact:
         KEEPALIVED_PRIORITY: 200
         KEEPALIVED_STATE: MASTER
-      when: ansible_hostname == "Uha1"
+      when: inventory_hostname == "Uha1"
 
     - name: Set keep vars BACKUP
       set_fact:
         KEEPALIVED_PRIORITY: 100
         KEEPALIVED_STATE: BACKUP
-      when: ansible_hostname == "Uha2"
+      when: inventory_hostname == "Uha2"
 
     - name: Install keepalived
       apt:
